@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Recipes
+{% endblock %}
+
+
+{% block main %}
+
+<h2>List of your favourite recipes</h2>
+<br>
+<div>
+</div>
+
+<br>
+
+
+<button>
+<a href="#addMore">Add a new recipe to your cookbook</a>
+</button>
+<br>
+<br>
+<br>
+<br>
+
+{% for id, x in receipes|groupby ('id') %}
+<section id="{{id}}"> 
+    <div class="container"> 
+        <div class="card-body bg-primary text-center">
+            
+            
+           {% for dish, y in x|groupby ('dish') %}
+            <h2 class="card-title">{{dish}}</h2> 
+            {% endfor %}
+           
+            {% for cuisine, y in x|groupby ('cuisine') %}
+            <h5><em>({{cuisine}})</em></h5>
+            {% endfor %}
+                    <br>
+            <div class="row">
+                    <br>
+                <div class="col-md-3"> 
+                    <p class="card-text"><b>Ingredients</b></p>
+                    
+
+                    
+                    {% for y in x %} 
+                    <p class="card-text"> {{y.ingredients}}   </p>
+                    {% endfor %}
+                    
+
+                </div>
+                    <div class="col-md-2">
+                    
+                    <p class="card-text"><b>Amount</b></p>
+                    
+                    {% for y in x %} 
+                    <p class="card-text">{{y.qty}} </p>
+                    {% endfor %}
+
+                </div>
+                
+                <div class="col-sm">  
+                    <button class="btn btn-danger" name="plus" value="plus">+</button>
+                
+                    <div class="p-2"> 4 servings</div>
+                    
+                    <button class="btn btn-danger" name="minus" value="minus">-</button>
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+<br>
+{% endfor %}
+
+<br id="addMore">
+<br><br>
+
+<button type="button" name="action" id="action" value="add" onclick="addTableRow()">Add more ingredients</button> <br /><br />
+
+<form action="/receipes" method="post">
+    <table id="table" class="add" border="1">
+        <td colspan="2"><label> Name of dish:
+            <input type ="text" id= "name" name="name">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Select the type of Cuisine:  
+            <select name="cuisine" id="cuisine" style="margin-right: 5em;">
+        <option disable selected>Cuisine</option>
+        <option value="Western">Western</option>  
+        <option value="Mexican">Mexican</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Arab">Arab</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Indian">Indian</option>
+        <option value="Italian">Italian</option>
+        <option value="Other">Other</option>      
+
+        </label>
+    </td>  
+        
+    <tr class="table-success">    
+        <th>Ingredient</th>
+        <th>Quantity</th>
+    </tr>
+    <tbody>
+        {% for n in range(number) %}
+          
+        <tr class="table-success">     
+        <td><input type="text" name="ingredient" id="ingredient"></td>
+        <td><input type="text" name="quantity" id="quantity"></td>
+   </tr>
+
+    {% endfor%}
+
+    </tbody>
+</table>
+
+<button class="btn btn-primary" type="submit" name="submit" value="submit">Submit</button>
+</form>
+
+<script>
+    function addTableRow() {
+      
+      var table = document.getElementById("table");
+      var row = table.insertRow(-1);
+      row.className = "table-success"
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML ='<td><input type="text" name="ingredient" id="ingredient"><td>';
+      cell2.innerHTML ='<td><input type="text" name="quantity" id="quantity"><td>';
+    }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+
+ <!-- Search button-->
+
+        <section class="bg-warning text-light p-5">
+            <div class="container">
+                <div class="d-md-flex justify-content-between align-items-center">
+
+                    <h3 class="mb-3 mb-md-0">Search for dishes</h3>
+
+                <form class="searchbar mb-3" onsubmit="Search()">
+                        <input id="s" type="text" placeholder="Enter name of dish..">
+
+                           <button type="button" onclick="location.href= Search();">Search</button>
+                              </form>
+
+
+                            </div>
+                                <div class="d-flex justify-content-center">
+                                <h4 class="text-primary" id="comment" > </h4>
+                                </div>
+                                </div>
+
+            <!-- Next content -->
+
+        </section>
+
+        <section class="p-5">
+            <div class="container">
+                <div class="row text-center g-2">
+                    <div class="col-md ">
+                        <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                                <div class="h1 mb-3">
+                                    <image class="img-fluid" src="https://images.pexels.com/photos/7034232/pexels-photo-7034232.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt=""></image>
+                                    </div>
+                                    <h3 class="card-title mb-3">Dishes</h3>
+                                    <p class="card-text mb-5">
+                                        
+                                        Go through all the dishes along with the ingredients with measurements.
+                                        </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-md">
+                    <div class="card bg-secondary text-light">
+                            <div class="card-body text-center">
+                                <div class="h1 mb-3">
+                                    <image class="img-fluid "src="https://images.pexels.com/photos/6061391/pexels-photo-6061391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt=""></image>
+                                    </div>
+                                    <h3 class="card-title mb-3">Recipes</h3>
+                                    <p class="card-text mb-5">
+                                       Input any recipes found on the internet or perhaps you have your own.
+                                    </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                    <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                                <div class="h1 mb-3">
+                                    <image class="img-fluid "src="https://cdn.pixabay.com/photo/2017/06/26/03/12/kitchen-scale-2442599_1280.jpg"></image>
+                                    </div>
+                                    <h3 class="card-title mb-1">Measurement</h3>
+                                    <p class="card-text mb-5">
+                                        Find out the exact measurements for your desired recipes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+    <!--Text section -->
+
+    <section id="section1" class="p-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md">
+                    <img  class="w-50" src="https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="" class="">
+                </div>
+                <div class="col-md">
+                    <h2> Why use this site? </h2>
+                    <p class="lead">
+                        One of the most frustrating things about cooking is getting the preparation done correctly. By keeping track of the ingredients that you have as well as having the list of different recipes, you will be able to cook that favourite dish of yours.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="section2" class="p-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col-md">
+                    <h2> Your Fridge </h2>
+                    <p class="lead">
+                        Not only you will be able to list all of the perishable ingredients, you can also make sure they are all within their expiry date. Who wants to cook with expired ingredients?
+                    </p>
+                </div>
+                <div class="col-md">
+                    <img  class="w-50" src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" class="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="section3" class="p-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md ">
+                    <img  class="w-50" src="https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                </div>
+                <div class="col-md">
+                    <h2> Your recipes </h2>
+                    <p class="lead">
+                        Whether you have your own recipes or found it on the net, you are able to have access to all of your recipes at your fingertips. 
+                        This will help you organise your cooking better as you will be able to see all the ingredients that are needed for a particular dish as well as the measurements.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<script>
+
+function Search() {
+
+var input = document.getElementById("s").value;
+
+if (input == ""){
+
+    var url = "/dishes?keyword=none";
+
+} else {
+
+    var url = "/dishes?keyword=" + input;
+}
+
+return url
+
+}
+</script>
+
+{% endblock %}

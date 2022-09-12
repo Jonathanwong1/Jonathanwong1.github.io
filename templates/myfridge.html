@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Fridge
+{% endblock %}
+{% block main %}
+<div class="section">
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Ingredients</th>
+                <th>Quantity (/pack)</th>
+                <th>Expiry date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fridge in fridges %}
+            <tr>
+                <td>{{fridge['ingredients']}}</td>
+                <td>{{fridge['qty']}}</td>
+                <td>{{fridge['date']}}</td>
+            </tr>
+            {% endfor %}
+       </tbody>
+    </table>
+</div>
+
+<section>
+<form action="/myfridge" method="post" id="fridge">
+       
+    <section class="p-5">
+        <div class="container-fluid">
+            <div class="row text-center g-2">
+                <div class="col-md ">
+                    
+                    <div class="form-group">
+                        <label> Enter name of food: 
+                            <input class="form-control" name="ingredients" placeholder="Ingredients" type="text">
+                        </label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label> Enter the quantity (/pack):
+                            <input class="form-control" name="qty" placeholder="Quantity" type="text">
+                        </label>
+                        </div>
+
+                    
+                        <div class="form-group">
+                            <label> Enter the date of expiry date
+                            <input class="form-control" name="date" placeholder=""  type="date">
+                        </label>
+                        </div>
+       
+                    </div>
+                </div>
+            </div>
+       
+            <div class="row">
+                <div class="col-sm-6">
+                        
+                        <a href="#" class="postion-absolute bottom-0 end-0">
+                            <input class="btn btn-secondary" type="button" value="Remove" name="action" id="Remove" onclick="addColumn('table')"> </a>
+                    </div>
+        
+                    <div class="col-6">
+                        <button class="btn btn-primary" type="submit" name="action" value="Submit">Submit</button>        
+        </div>
+
+        </div>
+    
+    </div>
+    </form>
+
+</section>
+
+    
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+    <script>
+        
+    function Expired(){
+
+
+        n =  new Date();
+        m = '' + (n.getMonth() + 1),
+        d = '' + n.getDate(),
+        y = n.getFullYear();
+
+        if (m.length < 2) 
+            m = '0' + m;
+        if (d.length < 2) 
+            d = '0' + d;
+    
+        full_date = y + "-" + m + "-" + d
+
+        var table = document.getElementById("table");
+
+        for (var i = 1  ; i < table.rows.length; i++){
+        for (var j = 0; j < table.rows[i].cells.length; j++){
+
+            if (table.rows[i].cells[2].innerHTML <= full_date)
+            this.table.rows[i].classList.toggle("expired")
+            
+        }
+            
+         }
+        
+        
+    }    
+    
+    Expired()
+    
+    var clicked = false;
+    var tblId = document.getElementById("table")
+
+    function addColumn(tblId) {if (!clicked)
+    
+    {
+    
+	var tblHeadObj = document.getElementById(tblId).tHead;
+	for (var h=0; h<tblHeadObj.rows.length; h++) {
+		var newTH = document.createElement('th');
+		tblHeadObj.rows[h].appendChild(newTH);
+		newTH.innerHTML = 'Remove out of dated items &nbsp; <form action="/myfridge" method="post" id="fridge"><input class="btn btn-secondary" type="submit" name="action" value="Remove" id="Remove" onclick="removal_list()">'; 
+	}
+
+	var tblBodyObj = document.getElementById(tblId).tBodies[0];
+    for (var i=0; i<tblBodyObj.rows.length; i++) {
+		var newCell = tblBodyObj.rows[i].insertCell(-1);    
+        newCell.innerHTML = '<td><input type="checkbox" name="remove" id="remove" ></td>';
+
+    } 
+        for (var i = 1  ; i < table.rows.length; i++){
+        for (var j = 0; j < table.rows[i].cells.length; j++){
+
+            if (table.rows[i].cells[2].innerHTML <= full_date)
+            this.table.rows[i].cells[3].innerHTML = '<td><input type="checkbox" name="remove" id="remove" checked></td>';
+            
+            clicked = true;
+        }
+    }
+        }
+}
+    addColumn(tblId)
+    
+    
+function removal_list(){
+
+        for (var i = 1  ; i < table.rows.length; i++){
+        for (var j = 0; j < table.rows[i].cells.length; j++){
+
+                
+            if (table.rows[i].cells[2].innerHTML <= full_date)
+            var r = table.rows[i].cells[2].innerHTML;
+            var x = table.rows[i].cells[1].innerHTML;
+            var y = table.rows[i].cells[0].innerHTML;
+        }
+        
+        $.ajax({
+    type: "POST",
+    url: '{{ url_for("get_post_json") }}',
+    contentType: "application/json",
+    data: JSON.stringify({r, x, y}),
+    dataType: "json",
+    
+});
+    }
+}
+     
+</script>
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Measurements
+
+{% endblock %}  
+
+{% block main %}
+
+<h3>Convert any measurements on the go</h3>
+<br>
+<div class="container px-5">
+   <br> 
+  <h4 class="p-1">Tempreature</h4>
+  <div class="row ">
+      <div class="col">
+        <div class="p-1"><label>Celsius (°C)</label></div><input type="number" id="celsius" placeholder="Celsius" 
+        oninput="temperatureConverter(this.id,this.value)" onchange="temperatureConverter(this.id,this.value)">
+      </div>
+
+      <div class="col">
+        <div class="p-1"><label>Fahrenheit (°F)</label></div><input type="number" id="fahrenheit" placeholder="Fahrenheit"
+        oninput="temperatureConverter(this.id,this.value)" onchange="temperatureConverter(this.id,this.value)">
+        </div>
+
+        <img class="" src="https://4.bp.blogspot.com/-DL-2cQRCC8A/Wge8HpLxUvI/AAAAAAABIFs/FDyFsQ9s5Hctxrigr2uzl39QXEUkPgnaQCLcBGAs/s800/ondokei_ondo3.png" alt="" width="50" height="100">
+      </div>
+</div>
+<br><br>
+
+<div class="container px-5">
+
+<h4>Weight</h4>
+<br>
+
+<img class="icon" src="https://1.bp.blogspot.com/-AnderFCkmKo/XzXkyIl1apI/AAAAAAABalw/PDC_XD0OQWUXjLGPP_m0SSYEs8sgU7-JACNcBGAsYHQ/s400/cooking_ih_heater.png" alt="">
+<div class="row">
+  <div class="col">
+  <div class="p-1"><label >Grams (g)</label></div><input type="number" id="grams" placeholder="Grams" oninput="weightConverter(this.id,this.value)" onchange="weightConverter(this.id,this.value)"> 
+</div>
+
+  <div class="col">
+  <div class="p-1"><label >Pounds (lb)</label></div><input type="number" id="pounds" placeholder="Pounds" oninput="weightConverter(this.id,this.value)" onchange="weightConverter(this.id,this.value)">    
+
+  </div>
+
+  <div class="col">
+    <div class="p-1"><label >Ounces (oz)</label></div><input type="number" id="ounces" placeholder="Ounces" oninput="weightConverter(this.id,this.value)" onchange="weightConverter(this.id,this.value)">    
+  
+    </div>
+
+</div>
+</div>
+<br><br>
+
+<h4>Volume</h4>
+<br>
+<div class="row">
+
+  <img class="icon2" src="https://3.bp.blogspot.com/-EmDnY-pQagk/WKFi9higpfI/AAAAAAABBq0/7HHrpDKSc7k1KS1dKNLNqizLXrwwEgNggCLcB/s800/cooking_keiryou_cup.png" alt="">
+  <div class="col">
+  <div class="p-1"><label >Milliliters (ml)</label></div><input type="number" id="milliliters" placeholder="Milliliters" oninput="volConverter(this.id,this.value)" onchange="volConverter(this.id,this.value)"> 
+</div>
+
+  <div class="col">
+  <div class="p-1"><label >Tablespoons (tbsp.)</label></div><input type="number" id="tablespoons" placeholder="Tablespoons" oninput="volConverter(this.id,this.value)" onchange="volConverter(this.id,this.value)">    
+  </div>
+
+
+  <div class="col">
+    <div class="p-1"><label >Teaspoons (tsp.)</label></div><input type="number" id="teaspoons" placeholder="Teaspoons" oninput="volConverter(this.id,this.value)" onchange="volConverter(this.id,this.value)">    
+  
+    </div>
+
+</div>
+</div>
+
+<script>
+    function temperatureConverter(source,valNum) {
+  valNum = parseFloat(valNum);
+  var inputFahrenheit = document.getElementById("fahrenheit");
+  var inputCelsius = document.getElementById("celsius");
+  if (source=="fahrenheit") {
+    inputCelsius.value=((valNum-32)/1.8).toFixed(2);
+  }
+  if (source=="celsius") {
+    inputFahrenheit.value=((valNum*1.8)+32).toFixed(2);
+  }
+  
+}
+
+function weightConverter(source,valNum) {
+  valNum = parseFloat(valNum);
+  var inputPounds = document.getElementById("pounds");
+  var inputOunces = document.getElementById("ounces");
+  var inputGrams = document.getElementById("grams");
+  
+  if (source=="pounds") {;
+    inputOunces.value=(valNum*16).toFixed(2);
+    inputGrams.value=(valNum/0.0022046).toFixed();
+  }
+  
+  if (source=="ounces") {
+    inputPounds.value=(valNum*0.062500).toFixed(4); 
+    inputGrams.value=(valNum/0.035274).toFixed(1);
+    
+  }
+  if (source=="grams") {
+    inputPounds.value=(valNum*0.0022046).toFixed(4);
+    inputOunces.value=(valNum*0.035274).toFixed(3); 
+  }
+}
+
+function volConverter(source,valNum) {
+  valNum = parseFloat(valNum);
+  var inputMilliliters = document.getElementById("milliliters");
+  var inputTablespoons = document.getElementById("tablespoons");
+  var inputTeaspoons = document.getElementById("teaspoons");
+
+
+  if (source=="milliliters") {;
+    inputTablespoons.value=(valNum/14.787).toFixed(2);
+    inputTeaspoons.value=(valNum/4.929).toFixed(2);
+  }
+  
+  if (source=="tablespoons") {
+    inputMilliliters.value=(valNum*14.787).toFixed(2); 
+    inputTeaspoons.value=(valNum*3).toFixed();
+    
+  }
+  if (source=="teaspoons") {
+    inputMilliliters.value=(valNum*4.929).toFixed(2);
+    inputTablespoons.value=(valNum/3).toFixed(2); 
+  }
+}
+
+</script>
+
+{% endblock %}
