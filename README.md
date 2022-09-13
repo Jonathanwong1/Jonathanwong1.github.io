@@ -93,6 +93,3 @@ Finally the user can click on the name of the dish and they will be redirected t
 
 `<td><a id="link" href="/receipes#{{dish['id']}}">{{dish['dish']}} </a></td>
             <td>{{dish['cuisine']}} </td>`
-
-        
-
