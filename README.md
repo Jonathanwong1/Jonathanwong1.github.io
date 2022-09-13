@@ -91,5 +91,4 @@ With `function myFunction`, the user can type any keyword in the table at the bo
 
 Finally the user can click on the name of the dish and they will be redirected to the recipe page with that particular dish.
 
-`<td><a id="link" href="/receipes#{{dish['id']}}">{{dish['dish']}} </a></td>
-            <td>{{dish['cuisine']}} </td>`
+`<td><a id="link" href="/receipes#{{dish['id']}}">{{dish['dish']}} </a></td> <td>{{dish['cuisine']}} </td>'
