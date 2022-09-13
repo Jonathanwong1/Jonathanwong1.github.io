@@ -79,7 +79,6 @@ All functions do the same job which is grab the number from textbox `document.ge
 
 ## Recipes (receipes.html)
 
-By default, the user can see the list of recipes on screen. `receipes = db.execute("SELECT * FROM receipe")` (from FLASK) and `{% for id, x in receipes|groupby ('id') %}` (from Jinja)
 
 The user can input the recipes from the bottom of the page in a table format. It starts out with 5 rows but the user can add more rows by clicking the "Add more ingredients" button. Another Javascript code is used here to make the magic happen.
 
